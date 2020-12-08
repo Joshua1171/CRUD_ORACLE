@@ -9,8 +9,7 @@ import java.io.Serializable;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Regions implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = -4112237509759230761L;
     @Id
     private Long region_id;
 

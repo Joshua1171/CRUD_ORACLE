@@ -8,14 +8,17 @@ import java.io.Serializable;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Departments implements Serializable {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 5090450135602013875L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long department_id;
 
     private String department_name;
-    private Long manager_id;
+
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "manager_id",referencedColumnName = "manager_id")
+    private Employees manager_id;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id",referencedColumnName = "location_id")
@@ -60,15 +63,15 @@ public class Departments implements Serializable {
         this.department_name = department_name;
     }
 
-    public Long getManager_id() {
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Employees getManager_id() {
         return manager_id;
     }
 
-    public void setManager_id(Long manager_id) {
+    public void setManager_id(Employees manager_id) {
         this.manager_id = manager_id;
     }
-
-
-
-
 }

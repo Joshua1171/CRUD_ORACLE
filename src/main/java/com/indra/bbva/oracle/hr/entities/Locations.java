@@ -8,7 +8,8 @@ import java.io.Serializable;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Locations implements Serializable {
-    private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 1449718269110875295L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

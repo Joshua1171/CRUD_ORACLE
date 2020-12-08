@@ -11,8 +11,8 @@ import java.io.Serializable;
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Countries implements Serializable {
 
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = -6184806735949850277L;
     @Id
     private String country_id;
 
