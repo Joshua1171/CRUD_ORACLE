@@ -11,16 +11,16 @@ public class Departments implements Serializable {
 
     private static final long serialVersionUID = 5090450135602013875L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long department_id;
 
     private String department_name;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "manager_id",referencedColumnName = "manager_id")
     private Employees manager_id;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id",referencedColumnName = "location_id")
     private Locations location_id;
     /*
@@ -37,14 +37,6 @@ public class Departments implements Serializable {
                 ", manager_id=" + manager_id +
                 ", location_id=" + location_id +
                 '}';
-    }
-
-    public Locations getLocation_id() {
-        return location_id;
-    }
-
-    public void setLocation_id(Locations location_id) {
-        this.location_id = location_id;
     }
 
     public Long getDepartment_id() {
@@ -73,5 +65,13 @@ public class Departments implements Serializable {
 
     public void setManager_id(Employees manager_id) {
         this.manager_id = manager_id;
+    }
+
+    public Locations getLocation_id() {
+        return location_id;
+    }
+
+    public void setLocation_id(Locations location_id) {
+        this.location_id = location_id;
     }
 }

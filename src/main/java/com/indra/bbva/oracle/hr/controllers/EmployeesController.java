@@ -26,7 +26,7 @@ public class EmployeesController {
     public List<Employees> index(HttpServletRequest request){
         return employeesService.findAll();
     }
-    @GetMapping("/Employees/{id}")
+    @GetMapping("/employees/{id}")
     public ResponseEntity<?> mostrar(@PathVariable Long id){
         Employees employees;
         Map<String,Object> response=new HashMap<>();
@@ -43,7 +43,7 @@ public class EmployeesController {
         }
         return new ResponseEntity<Employees>(employees,HttpStatus.OK);
     }
-    @PostMapping("/Employees")
+    @PostMapping("/employees")
     public ResponseEntity<?> crear(@Valid @RequestBody Employees employees, BindingResult result){
         Employees c =null;
 

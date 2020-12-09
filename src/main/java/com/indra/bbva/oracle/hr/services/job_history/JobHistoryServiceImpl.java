@@ -1,7 +1,7 @@
 package com.indra.bbva.oracle.hr.services.job_history;
 
 import com.indra.bbva.oracle.hr.dao.IJobHistoryDao;
-import com.indra.bbva.oracle.hr.dao.IJobsDao;
+
 import com.indra.bbva.oracle.hr.entities.JobHistory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +10,7 @@ import java.util.List;
 
 @Service
 public class JobHistoryServiceImpl implements IJobHistoryService{
+
     @Autowired
     private IJobHistoryDao jobHistoryDao;
 
@@ -19,13 +20,18 @@ public class JobHistoryServiceImpl implements IJobHistoryService{
     }
 
     @Override
-    public JobHistory findById(Long id) {
-        return jobHistoryDao.findById(id).orElse(null);
+    public List<JobHistory> findAllById(Long id) {
+        return jobHistoryDao.buscarTodoPorId(id);
+    }
+
+    @Override
+    public JobHistory findOneById(Long id) {
+        return jobHistoryDao.buscarPorEmpleado(id);
     }
 
     @Override
     public void deleteById(Long id) {
-        jobHistoryDao.deleteById(id);
+        jobHistoryDao.eliminarPorIdEmpleado(id);
     }
 
     @Override

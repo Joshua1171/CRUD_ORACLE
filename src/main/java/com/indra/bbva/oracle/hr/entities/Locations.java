@@ -12,15 +12,15 @@ public class Locations implements Serializable {
     private static final long serialVersionUID = 1449718269110875295L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long location_id;
     private String street_address;
     private String postal_code;
     private String city;
     private String state_province;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "country_id",referencedColumnName = "country_id")
+
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinColumn(name = "country_id")
     private Countries country_id;
 
 
@@ -32,7 +32,7 @@ public class Locations implements Serializable {
                 ", postal_code='" + postal_code + '\'' +
                 ", city='" + city + '\'' +
                 ", state_province='" + state_province + '\'' +
-                ", country_id='" + country_id + '\'' +
+                ", country_id=" + country_id +
                 '}';
     }
 
@@ -42,6 +42,10 @@ public class Locations implements Serializable {
 
     public void setCountry_id(Countries country_id) {
         this.country_id = country_id;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public Long getLocation_id() {

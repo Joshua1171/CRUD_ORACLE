@@ -4,11 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Regions implements Serializable {
+
     private static final long serialVersionUID = -4112237509759230761L;
     @Id
     private Long region_id;
@@ -39,4 +42,5 @@ public class Regions implements Serializable {
     public void setRegion_name(String region_name) {
         this.region_name = region_name;
     }
+
 }

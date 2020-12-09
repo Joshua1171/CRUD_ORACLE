@@ -26,6 +26,7 @@ public class DepartmentsController {
     public List<Departments> index(HttpServletRequest request){
         return departmentsService.findAll();
     }
+
     @GetMapping("/departments/{id}")
     public ResponseEntity<?> mostrar(@PathVariable Long id){
         Departments departments;

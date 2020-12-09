@@ -22,16 +22,17 @@ public class JobHistoryController {
     @Autowired
     private IJobHistoryService jobHistoryService;
 
-    @GetMapping("/JobHistory")
+    @GetMapping("/jobHistory")
     public List<JobHistory> index(HttpServletRequest request){
         return jobHistoryService.findAll();
     }
+
     @GetMapping("/jobHistory/{id}")
     public ResponseEntity<?> mostrar(@PathVariable Long id){
-        JobHistory jobHistory;
+        List<JobHistory> jobHistory;
         Map<String,Object> response=new HashMap<>();
         try{
-            jobHistory=jobHistoryService.findById(id);
+            jobHistory=jobHistoryService.findAllById(id);
         }catch (DataAccessException e){
             response.put("mensaje","Error al hacer la consulta en la base de datos");
             response.put("error",e.getMessage().concat(":").concat(e.getMostSpecificCause().getMessage()));
@@ -41,9 +42,9 @@ public class JobHistoryController {
             response.put("mensaje","Id del cliente:".concat(id.toString().concat("no existe en la base de datos")));
             return new ResponseEntity<Map<String,Object>>(response,HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<JobHistory>(jobHistory,HttpStatus.OK);
+        return new ResponseEntity<List<JobHistory>>(jobHistory,HttpStatus.OK);
     }
-    @PostMapping("/JobHistory")
+    @PostMapping("/jobHistory")
     public ResponseEntity<?> crear(@Valid @RequestBody JobHistory jobHistory, BindingResult result){
         JobHistory c =null;
 
@@ -91,7 +92,7 @@ public class JobHistoryController {
 
     @PutMapping("/jobHistory/{id}")
     public ResponseEntity<?> editar(@Valid @RequestBody JobHistory jobHistory,BindingResult result,@PathVariable Long id){
-        JobHistory actualJob=jobHistoryService.findById(id);
+        JobHistory actualJob=jobHistoryService.findOneById(id);
         JobHistory updatedJob=null;
         Map<String, Object> response = new HashMap<>();
 

@@ -2,6 +2,7 @@ package com.indra.bbva.oracle.hr.services.countries;
 
 import com.indra.bbva.oracle.hr.dao.ICountriesDao;
 import com.indra.bbva.oracle.hr.entities.Countries;
+import com.indra.bbva.oracle.hr.entities.Regions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,4 +38,8 @@ public class CountriesServiceImpl implements ICountriesService{
     public Countries save(Countries c) {
         return iCountriesDao.save(c);
     }
+
+
+
+
 }

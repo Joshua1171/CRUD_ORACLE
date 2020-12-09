@@ -1,6 +1,7 @@
 package com.indra.bbva.oracle.hr.controllers;
 
 import com.indra.bbva.oracle.hr.entities.Countries;
+import com.indra.bbva.oracle.hr.entities.Regions;
 import com.indra.bbva.oracle.hr.services.countries.ICountriesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -26,6 +27,9 @@ public class CountriesController {
     public List<Countries> index(HttpServletRequest request){
         return countriesService.findAll();
     }
+
+
+
     @GetMapping("/countries/{id}")
     public ResponseEntity<?> mostrar(@PathVariable String id){
         Countries countries;
@@ -110,7 +114,7 @@ public class CountriesController {
         try{
             actualCountry.setCountry_id(countries.getCountry_id());
             actualCountry.setCountry_name(countries.getCountry_name());
-            actualCountry.setRegion_id(countries.getRegion_id());
+            actualCountry.getRegions().setRegion_id(countries.getRegions().getRegion_id());
 
             updatedCountry=countriesService.save(actualCountry);
         }catch (DataAccessException e){

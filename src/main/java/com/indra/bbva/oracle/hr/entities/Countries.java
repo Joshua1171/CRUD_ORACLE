@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
@@ -13,31 +14,30 @@ public class Countries implements Serializable {
 
 
     private static final long serialVersionUID = -6184806735949850277L;
+
     @Id
     private String country_id;
 
     private String country_name;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "region_id",referencedColumnName = "region_id")
-    private Regions region_id;
+
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinColumn(name = "region_id")
+    private Regions regions;
+
+    @OneToMany(mappedBy = "country_id",fetch = FetchType.LAZY)
+    private List<Locations> locations;
 
 
-    @Override
-    public String toString() {
-        return "Countries{" +
-                "country_id='" + country_id + '\'' +
-                ", country_name='" + country_name + '\'' +
-                ", region_id=" + region_id +
-                '}';
+
+
+
+    public Regions getRegions() {
+        return regions;
     }
 
-    public Regions getRegion_id() {
-        return region_id;
-    }
-
-    public void setRegion_id(Regions region_id) {
-        this.region_id = region_id;
+    public void setRegions(Regions regions) {
+        this.regions = regions;
     }
 
     public String getCountry_id() {

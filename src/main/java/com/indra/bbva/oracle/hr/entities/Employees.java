@@ -25,23 +25,23 @@ public class Employees implements Serializable {
     private String phone_number;
     private Date hire_date;
 
+
+
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "job_id",referencedColumnName = "job_id")
     private Jobs job_id;
-    private int salary;
-    private int commission_pct;
+
+    private Integer salary;
+
+    private Integer commission_pct;
 
     private Long manager_id;
 
-    /*
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "manager_id")
-    @JoinColumn(name = "manager_id",referencedColumnName = "manager_id")
-    private Employees manager;
-    */
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "department_id",referencedColumnName = "department_id")
+    @JoinColumn(name = "department_id")
     private Departments department_id;
+
 
     @Override
     public String toString() {
@@ -112,23 +112,6 @@ public class Employees implements Serializable {
         this.hire_date = hire_date;
     }
 
-
-    public int getSalary() {
-        return salary;
-    }
-
-    public void setSalary(int salary) {
-        this.salary = salary;
-    }
-
-    public int getCommission_pct() {
-        return commission_pct;
-    }
-
-    public void setCommission_pct(int commission_pct) {
-        this.commission_pct = commission_pct;
-    }
-
     public Long getManager_id() {
         return manager_id;
     }
@@ -137,13 +120,20 @@ public class Employees implements Serializable {
         this.manager_id = manager_id;
     }
 
-
-    public Departments getDepartment_id() {
-        return department_id;
+    public Integer getSalary() {
+        return salary;
     }
 
-    public void setDepartment_id(Departments department_id) {
-        this.department_id = department_id;
+    public void setSalary(Integer salary) {
+        this.salary = salary;
+    }
+
+    public Integer getCommission_pct() {
+        return commission_pct;
+    }
+
+    public void setCommission_pct(Integer commission_pct) {
+        this.commission_pct = commission_pct;
     }
 
     public Jobs getJob_id() {
@@ -152,5 +142,13 @@ public class Employees implements Serializable {
 
     public void setJob_id(Jobs job_id) {
         this.job_id = job_id;
+    }
+
+    public Departments getDepartment_id() {
+        return department_id;
+    }
+
+    public void setDepartment_id(Departments department_id) {
+        this.department_id = department_id;
     }
 }
