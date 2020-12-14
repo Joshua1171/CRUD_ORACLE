@@ -1,10 +1,9 @@
 package com.indra.bbva.oracle.hr.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -19,12 +18,25 @@ public class Regions implements Serializable {
 
     private String region_name;
 
+    @OneToMany(targetEntity = Countries.class,fetch = FetchType.LAZY)
+    @JoinColumn(name="r_fk",referencedColumnName = "region_id")
+    @JsonIgnore
+    private List<Countries> countries;
+
     @Override
     public String toString() {
         return "Regions{" +
                 "region_id=" + region_id +
                 ", region_name='" + region_name + '\'' +
                 '}';
+    }
+
+    public List<Countries> getCountries() {
+        return countries;
+    }
+
+    public void setCountries(List<Countries> countries) {
+        this.countries = countries;
     }
 
     public Long getRegion_id() {

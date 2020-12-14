@@ -3,6 +3,7 @@ package com.indra.bbva.oracle.hr.services.countries;
 import com.indra.bbva.oracle.hr.dao.ICountriesDao;
 import com.indra.bbva.oracle.hr.entities.Countries;
 import com.indra.bbva.oracle.hr.entities.Regions;
+import com.indra.bbva.oracle.hr.entities.join.CountriesRegions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,12 @@ public class CountriesServiceImpl implements ICountriesService{
     public List<Countries> findAll() {
         return (List<Countries>)iCountriesDao.findAll();
     }
+
+    @Override
+    public List<CountriesRegions> findNames() {
+        return iCountriesDao.findCountriesRegions();
+    }
+
 
     @Override
     @Transactional(readOnly = true)

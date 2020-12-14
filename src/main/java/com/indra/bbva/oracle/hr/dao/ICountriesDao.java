@@ -2,6 +2,7 @@ package com.indra.bbva.oracle.hr.dao;
 
 import com.indra.bbva.oracle.hr.entities.Countries;
 import com.indra.bbva.oracle.hr.entities.Regions;
+import com.indra.bbva.oracle.hr.entities.join.CountriesRegions;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -17,6 +18,9 @@ public interface ICountriesDao extends JpaRepository<Countries,String> {
 
     //@Query(value = "DELETE FROM COUNTRIES WHERE COUNTRY_ID = ?1", nativeQuery = true)@Query(value ="SELECT r.region_name FROM Regions r JOIN Countries c on r.region_id=c.region_id",nativeQuery = true)
     //public List<Regions> verRegiones();
+
+    @Query("SELECT new com.indra.bbva.oracle.hr.entities.join.CountriesRegions(c.country_name,r.region_name) FROM Countries c JOIN c.regions r")
+    public List<CountriesRegions> findCountriesRegions();
 
     @Transactional
     @Modifying

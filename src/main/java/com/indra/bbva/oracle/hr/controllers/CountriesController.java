@@ -2,6 +2,7 @@ package com.indra.bbva.oracle.hr.controllers;
 
 import com.indra.bbva.oracle.hr.entities.Countries;
 import com.indra.bbva.oracle.hr.entities.Regions;
+import com.indra.bbva.oracle.hr.entities.join.CountriesRegions;
 import com.indra.bbva.oracle.hr.services.countries.ICountriesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -27,6 +28,11 @@ public class CountriesController {
     public List<Countries> index(HttpServletRequest request){
         return countriesService.findAll();
     }
+    @GetMapping("/countries/regions")
+    public List<CountriesRegions> buscarNombres(HttpServletRequest request){
+        return countriesService.findNames();
+    }
+
 
 
 

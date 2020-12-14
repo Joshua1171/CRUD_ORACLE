@@ -1,5 +1,6 @@
 package com.indra.bbva.oracle.hr.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -17,12 +18,13 @@ public class Locations implements Serializable {
     private String postal_code;
     private String city;
     private String state_province;
+    private String country_id;
 
 
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinColumn(name = "country_id")
-    private Countries country_id;
-
+    @JoinColumn(name = "country_id",insertable = false,updatable = false)
+    @JsonIgnore
+    private Countries countries;
 
     @Override
     public String toString() {
@@ -32,16 +34,25 @@ public class Locations implements Serializable {
                 ", postal_code='" + postal_code + '\'' +
                 ", city='" + city + '\'' +
                 ", state_province='" + state_province + '\'' +
-                ", country_id=" + country_id +
+                ", country_id='" + country_id + '\'' +
+                ", countries=" + countries +
                 '}';
     }
 
-    public Countries getCountry_id() {
+    public String getCountry_id() {
         return country_id;
     }
 
-    public void setCountry_id(Countries country_id) {
+    public void setCountry_id(String country_id) {
         this.country_id = country_id;
+    }
+
+    public Countries getCountries() {
+        return countries;
+    }
+
+    public void setCountries(Countries countries) {
+        this.countries = countries;
     }
 
     public static long getSerialVersionUID() {

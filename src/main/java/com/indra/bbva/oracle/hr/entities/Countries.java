@@ -2,6 +2,7 @@ package com.indra.bbva.oracle.hr.entities;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -17,20 +18,36 @@ public class Countries implements Serializable {
 
     @Id
     private String country_id;
-
     private String country_name;
+    private Long region_id;
 
 
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinColumn(name = "region_id")
+    @JoinColumn(name = "region_id",updatable = false,insertable = false)
+    @JsonIgnore
     private Regions regions;
 
-    @OneToMany(mappedBy = "country_id",fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Locations.class,fetch = FetchType.LAZY)
+    @JoinColumn(name="c_fk",referencedColumnName = "country_id")
+    @JsonIgnore
     private List<Locations> locations;
 
 
+    public Long getRegion_id() {
+        return region_id;
+    }
 
+    public void setRegion_id(Long region_id) {
+        this.region_id = region_id;
+    }
 
+    public List<Locations> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(List<Locations> locations) {
+        this.locations = locations;
+    }
 
     public Regions getRegions() {
         return regions;

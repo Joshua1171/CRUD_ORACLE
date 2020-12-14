@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -18,14 +17,20 @@ public class JobHistory implements Serializable {
     private static final long serialVersionUID = 7598432306797093770L;
 
 
-
+    @Id
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "employee_id")
-    @Id
     private Employees employee_id;
 
     @Id
+    @Temporal(TemporalType.TIMESTAMP)
     private Date start_date;
+
+    @PrePersist
+    public void prePersist(){
+        this.start_date=new Date();
+    }
+
 
     private Date end_date;
 
