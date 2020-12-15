@@ -1,6 +1,8 @@
 package com.indra.bbva.oracle.hr.controllers;
 
 import com.indra.bbva.oracle.hr.entities.Locations;
+import com.indra.bbva.oracle.hr.entities.join.LocationsCR;
+import com.indra.bbva.oracle.hr.entities.join.LocationsCountries;
 import com.indra.bbva.oracle.hr.services.locations.ILocationsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -26,6 +28,16 @@ public class LocationsController {
     public List<Locations> index(HttpServletRequest request){
         return locationsService.findAll();
     }
+    @GetMapping("/locations/countries")
+    public List<LocationsCountries> findByJoin(HttpServletRequest request){
+        return locationsService.findLocationsCountries();
+    }
+    @GetMapping("/locations/cr")
+    public List<LocationsCR> findByCR(HttpServletRequest request){
+        return locationsService.findLocationsCR();
+    }
+
+
     @GetMapping("/locations/{id}")
     public ResponseEntity<?> mostrar(@PathVariable Long id){
         Locations locations;

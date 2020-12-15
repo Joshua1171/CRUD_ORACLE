@@ -1,5 +1,6 @@
 package com.indra.bbva.oracle.hr.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -16,13 +17,21 @@ public class Departments implements Serializable {
     private String department_name;
 
 
+    /*
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinColumn(name = "manager_id",referencedColumnName = "manager_id")
-    private Employees manager_id;
+    @JoinColumn(name = "manager_id",referencedColumnName = "manager_id",insertable = false,updatable = false)
+    @JsonIgnore
+    private Employees employees;
+     */
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinColumn(name = "location_id",referencedColumnName = "location_id")
-    private Locations location_id;
+    private Integer manager_id;
+
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id",referencedColumnName = "location_id",insertable = false,updatable = false)
+    @JsonIgnore
+    private Locations locations;
+
+    private Long location_id;
     /*
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_to_roles",
@@ -59,19 +68,28 @@ public class Departments implements Serializable {
         return serialVersionUID;
     }
 
-    public Employees getManager_id() {
+    public Integer getManager_id() {
         return manager_id;
     }
 
-    public void setManager_id(Employees manager_id) {
+    public void setManager_id(Integer manager_id) {
         this.manager_id = manager_id;
     }
 
-    public Locations getLocation_id() {
+    public Locations getLocations() {
+        return locations;
+    }
+
+    public void setLocations(Locations locations) {
+        this.locations = locations;
+    }
+
+    public Long getLocation_id() {
         return location_id;
     }
 
-    public void setLocation_id(Locations location_id) {
+    public void setLocation_id(Long location_id) {
         this.location_id = location_id;
     }
+
 }

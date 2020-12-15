@@ -1,6 +1,7 @@
 package com.indra.bbva.oracle.hr.controllers;
 
 import com.indra.bbva.oracle.hr.entities.Departments;
+import com.indra.bbva.oracle.hr.entities.join.DepartmentsLocations;
 import com.indra.bbva.oracle.hr.services.departments.IDepartmentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -26,6 +27,12 @@ public class DepartmentsController {
     public List<Departments> index(HttpServletRequest request){
         return departmentsService.findAll();
     }
+
+    @GetMapping("/departments/locations")
+    public List<DepartmentsLocations> findDepartmentsLocatiosn(HttpServletRequest request){
+        return departmentsService.findDepartmentsLocations();
+    }
+
 
     @GetMapping("/departments/{id}")
     public ResponseEntity<?> mostrar(@PathVariable Long id){

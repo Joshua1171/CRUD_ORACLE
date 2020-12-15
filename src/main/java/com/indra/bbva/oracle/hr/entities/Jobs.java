@@ -1,10 +1,11 @@
 package com.indra.bbva.oracle.hr.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
@@ -18,13 +19,19 @@ public class Jobs implements Serializable {
     private int min_salary;
     private int max_salary;
 
+    @OneToMany(targetEntity = JobHistory.class,fetch = FetchType.LAZY)
+    @JoinColumn(name="job_id",referencedColumnName = "job_id")
+    @JsonIgnore
+    private List<JobHistory> job_history;
+
     @Override
     public String toString() {
         return "Jobs{" +
                 "job_id='" + job_id + '\'' +
-                ", job_tittle='" + job_title + '\'' +
+                ", job_title='" + job_title + '\'' +
                 ", min_salary=" + min_salary +
                 ", max_salary=" + max_salary +
+                ", job_history=" + job_history +
                 '}';
     }
 
@@ -34,14 +41,6 @@ public class Jobs implements Serializable {
 
     public void setJob_id(String job_id) {
         this.job_id = job_id;
-    }
-
-    public String getJob_tittle() {
-        return job_title;
-    }
-
-    public void setJob_tittle(String job_title) {
-        this.job_title = job_title;
     }
 
     public int getMin_salary() {
@@ -58,5 +57,21 @@ public class Jobs implements Serializable {
 
     public void setMax_salary(int max_salary) {
         this.max_salary = max_salary;
+    }
+
+    public String getJob_title() {
+        return job_title;
+    }
+
+    public void setJob_title(String job_title) {
+        this.job_title = job_title;
+    }
+
+    public List<JobHistory> getJob_history() {
+        return job_history;
+    }
+
+    public void setJob_history(List<JobHistory> job_history) {
+        this.job_history = job_history;
     }
 }

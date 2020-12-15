@@ -2,6 +2,8 @@ package com.indra.bbva.oracle.hr.services.locations;
 
 import com.indra.bbva.oracle.hr.dao.ILocationsDao;
 import com.indra.bbva.oracle.hr.entities.Locations;
+import com.indra.bbva.oracle.hr.entities.join.LocationsCR;
+import com.indra.bbva.oracle.hr.entities.join.LocationsCountries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,16 @@ public class LocationsServiceImpl implements ILocationsService {
     @Override
     public List<Locations> findAll() {
         return (List<Locations>) locationsDao.findAll();
+    }
+
+    @Override
+    public List<LocationsCountries> findLocationsCountries() {
+        return locationsDao.findLocationsCountries();
+    }
+
+    @Override
+    public List<LocationsCR> findLocationsCR() {
+        return locationsDao.findLocationsCR();
     }
 
     @Override

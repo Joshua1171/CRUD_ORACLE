@@ -2,6 +2,7 @@ package com.indra.bbva.oracle.hr.services.departments;
 
 import com.indra.bbva.oracle.hr.dao.IDepartmetsDao;
 import com.indra.bbva.oracle.hr.entities.Departments;
+import com.indra.bbva.oracle.hr.entities.join.DepartmentsLocations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,11 @@ public class DepartmentsServiceImpl implements IDepartmentsService{
     @Override
     public List<Departments> findAll() {
         return (List<Departments>) departmetsDao.findAll();
+    }
+
+    @Override
+    public List<DepartmentsLocations> findDepartmentsLocations() {
+        return departmetsDao.findDepartmentsLocations();
     }
 
     @Override

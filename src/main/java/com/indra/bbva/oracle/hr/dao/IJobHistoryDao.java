@@ -2,6 +2,7 @@ package com.indra.bbva.oracle.hr.dao;
 
 import com.indra.bbva.oracle.hr.entities.JobHistory;
 import com.indra.bbva.oracle.hr.entities.JobHistoryPK;
+import com.indra.bbva.oracle.hr.entities.join.JobHistoryEmploye;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -22,11 +23,13 @@ public interface IJobHistoryDao extends CrudRepository<JobHistory, JobHistoryPK>
     @Query(value = "select * from JOB_HISTORY where employee_id = ?1",nativeQuery = true)
     public List<JobHistory> buscarTodoPorId(Long id);
 
-
-
-
     @Query("select j from JobHistory j where j.employee_id = ?1")
     public JobHistory buscarPorEmpleado(Long id);
+
+    @Query("SELECT new com.indra.bbva.oracle.hr.entities.join.JobHistoryEmploye" +
+            "(e.hire_date,h.start_date,e.first_name,e.last_name,e.email,h.end_date) " +
+            "FROM JobHistory h JOIN h.employees e")
+    public List<JobHistoryEmploye> findEmployeeHistory();
 
 
     //@Query(value = "DELETE FROM COUNTRIES WHERE COUNTRY_ID = ?1", nativeQuery = true)

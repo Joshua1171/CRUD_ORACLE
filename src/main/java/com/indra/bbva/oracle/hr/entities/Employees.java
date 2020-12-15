@@ -1,12 +1,15 @@
 package com.indra.bbva.oracle.hr.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
@@ -28,19 +31,27 @@ public class Employees implements Serializable {
 
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "job_id",referencedColumnName = "job_id")
+    @JoinColumn(name = "job_id",referencedColumnName = "job_id",insertable = false,updatable = false)
+    @JsonIgnore
     private Jobs job_id;
 
     private Integer salary;
 
     private Integer commission_pct;
 
-    private Long manager_id;
+    private Integer manager_id;
 
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "department_id")
+    @JoinColumn(name = "department_id",referencedColumnName = "department_id",insertable = true,updatable = true)
+    @JsonIgnore
     private Departments department_id;
+
+
+    @OneToMany(targetEntity = Locations.class,fetch = FetchType.LAZY)
+    @JoinColumn(name="employee_id",referencedColumnName = "employee_id",insertable = false,updatable = false)
+    @JsonIgnore
+    private List<JobHistory> job_history;
 
 
     @Override
@@ -57,7 +68,17 @@ public class Employees implements Serializable {
                 ", commission_pct=" + commission_pct +
                 ", manager_id=" + manager_id +
                 ", department_id=" + department_id +
+                ", job_history=" + job_history +
                 '}';
+    }
+
+
+    public List<JobHistory> getJob_history() {
+        return job_history;
+    }
+
+    public void setJob_history(List<JobHistory> job_history) {
+        this.job_history = job_history;
     }
 
     public static long getSerialVersionUID() {
@@ -112,11 +133,11 @@ public class Employees implements Serializable {
         this.hire_date = hire_date;
     }
 
-    public Long getManager_id() {
+    public Integer getManager_id() {
         return manager_id;
     }
 
-    public void setManager_id(Long manager_id) {
+    public void setManager_id(Integer manager_id) {
         this.manager_id = manager_id;
     }
 

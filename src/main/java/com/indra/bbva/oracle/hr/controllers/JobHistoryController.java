@@ -1,6 +1,7 @@
 package com.indra.bbva.oracle.hr.controllers;
 
 import com.indra.bbva.oracle.hr.entities.JobHistory;
+import com.indra.bbva.oracle.hr.entities.join.JobHistoryEmploye;
 import com.indra.bbva.oracle.hr.services.job_history.IJobHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -26,6 +27,11 @@ public class JobHistoryController {
     public List<JobHistory> index(HttpServletRequest request){
         return jobHistoryService.findAll();
     }
+    @GetMapping("/jobHistory/employee")
+    public List<JobHistoryEmploye> findEmployeeHistory(HttpServletRequest request){
+        return jobHistoryService.findEmployeHistory();
+    }
+
 
     @GetMapping("/jobHistory/{id}")
     public ResponseEntity<?> mostrar(@PathVariable Long id){

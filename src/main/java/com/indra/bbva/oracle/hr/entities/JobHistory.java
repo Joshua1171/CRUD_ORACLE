@@ -1,5 +1,6 @@
 package com.indra.bbva.oracle.hr.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -17,10 +18,14 @@ public class JobHistory implements Serializable {
     private static final long serialVersionUID = 7598432306797093770L;
 
 
-    @Id
+
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinColumn(name = "employee_id")
-    private Employees employee_id;
+    @JoinColumn(name = "employee_id",insertable = false,updatable = false)
+    @JsonIgnore
+    private Employees employees;
+
+    @Id
+    private Long employee_id;
 
     @Id
     @Temporal(TemporalType.TIMESTAMP)
@@ -31,18 +36,22 @@ public class JobHistory implements Serializable {
         this.start_date=new Date();
     }
 
-
     private Date end_date;
 
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "job_id",referencedColumnName = "job_id",insertable = false,updatable = false)
+    @JsonIgnore
+    private Jobs jobs;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinColumn(name = "job_id",referencedColumnName = "job_id")
-    private Jobs job_id;
+    private String job_id;
 
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinColumn(name = "department_id")
-    private Departments department_id;
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "department_id",insertable = false,updatable = false)
+    @JsonIgnore
+    private Departments departments;
+
+    private Long department_id;
 
 
 
@@ -67,15 +76,51 @@ public class JobHistory implements Serializable {
         return serialVersionUID;
     }
 
-    public void setEmployee_id(Employees employee_id) {
+    public Employees getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Employees employees) {
+        this.employees = employees;
+    }
+
+    public Long getEmployee_id() {
+        return employee_id;
+    }
+
+    public void setEmployee_id(Long employee_id) {
         this.employee_id = employee_id;
     }
 
-    public void setJob_id(Jobs job_id) {
+    public Jobs getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(Jobs jobs) {
+        this.jobs = jobs;
+    }
+
+    public String getJob_id() {
+        return job_id;
+    }
+
+    public void setJob_id(String job_id) {
         this.job_id = job_id;
     }
 
-    public void setDepartment_id(Departments department_id) {
+    public Departments getDepartments() {
+        return departments;
+    }
+
+    public void setDepartments(Departments departments) {
+        this.departments = departments;
+    }
+
+    public Long getDepartment_id() {
+        return department_id;
+    }
+
+    public void setDepartment_id(Long department_id) {
         this.department_id = department_id;
     }
 

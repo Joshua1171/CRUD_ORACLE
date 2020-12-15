@@ -2,6 +2,7 @@ package com.indra.bbva.oracle.hr.services.jobs;
 
 import com.indra.bbva.oracle.hr.dao.IJobsDao;
 import com.indra.bbva.oracle.hr.entities.Jobs;
+import com.indra.bbva.oracle.hr.entities.join.JJobHistory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,11 @@ public class JobsServiceImpl implements IJobsService{
     @Override
     public List<Jobs> findAll() {
         return (List<Jobs>) jobsDao.findAll();
+    }
+
+    @Override
+    public List<JJobHistory> findHistory() {
+        return jobsDao.findHistory();
     }
 
     @Override

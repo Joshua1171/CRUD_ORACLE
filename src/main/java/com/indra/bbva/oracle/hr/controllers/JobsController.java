@@ -1,6 +1,7 @@
 package com.indra.bbva.oracle.hr.controllers;
 
 import com.indra.bbva.oracle.hr.entities.Jobs;
+import com.indra.bbva.oracle.hr.entities.join.JJobHistory;
 import com.indra.bbva.oracle.hr.services.jobs.IJobsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -25,6 +26,10 @@ public class JobsController {
     @GetMapping("/jobs")
     public List<Jobs> index(HttpServletRequest request){
         return jobsService.findAll();
+    }
+    @GetMapping("/jobs/history")
+    public List<JJobHistory> findHistory(HttpServletRequest request){
+        return jobsService.findHistory();
     }
     @GetMapping("/jobs/{id}")
     public ResponseEntity<?> mostrar(@PathVariable String id){
@@ -108,7 +113,7 @@ public class JobsController {
             return new ResponseEntity<Map<String,Object>>(response,HttpStatus.NOT_FOUND);
         }
         try{
-            actualJob.setJob_tittle(jobs.getJob_tittle());
+            actualJob.setJob_title(jobs.getJob_title());
             actualJob.setMin_salary(jobs.getMin_salary());
             actualJob.setMax_salary(jobs.getMax_salary());
             updatedJob=jobsService.save(actualJob);
