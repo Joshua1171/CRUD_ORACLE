@@ -1,7 +1,6 @@
 package com.indra.bbva.oracle.hr.services.countries;
 
 import com.indra.bbva.oracle.hr.entities.Countries;
-import com.indra.bbva.oracle.hr.entities.Regions;
 import com.indra.bbva.oracle.hr.entities.join.CountriesRegions;
 
 import java.util.List;
