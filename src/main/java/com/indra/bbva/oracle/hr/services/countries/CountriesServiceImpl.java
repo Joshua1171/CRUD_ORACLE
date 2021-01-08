@@ -2,7 +2,6 @@ package com.indra.bbva.oracle.hr.services.countries;
 
 import com.indra.bbva.oracle.hr.dao.ICountriesDao;
 import com.indra.bbva.oracle.hr.entities.Countries;
-import com.indra.bbva.oracle.hr.entities.Regions;
 import com.indra.bbva.oracle.hr.entities.join.CountriesRegions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

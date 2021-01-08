@@ -4,7 +4,7 @@ import com.indra.bbva.oracle.hr.entities.Countries;
 import com.indra.bbva.oracle.hr.entities.join.CountriesRegions;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
+
 
 public interface ICountriesService {
 

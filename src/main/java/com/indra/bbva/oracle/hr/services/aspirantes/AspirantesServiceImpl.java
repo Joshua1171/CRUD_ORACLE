@@ -2,14 +2,15 @@ package com.indra.bbva.oracle.hr.services.aspirantes;
 
 import com.indra.bbva.oracle.hr.dao.IAspirantesDao;
 import com.indra.bbva.oracle.hr.entities.Aspirantes;
-import com.indra.bbva.oracle.hr.entities.Countries;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Set;
 
 
+@Service
 public class AspirantesServiceImpl implements IAspirantesService{
 
     @Autowired
@@ -17,7 +18,20 @@ public class AspirantesServiceImpl implements IAspirantesService{
 
 
     @Override
+    @Transactional(readOnly = true)
     public List<Aspirantes> findAll() {
-        return (List<Aspirantes>) aspirantesDao.findAll();
+        return (List<Aspirantes>)aspirantesDao.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Set<Aspirantes> findByName(String dato) {
+        return (Set<Aspirantes>) aspirantesDao.findByNombres(dato);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Set<Aspirantes> filtro(String valor) {
+        return aspirantesDao.findByNombresOrApellidosOrTecnologia(valor,valor,valor);
     }
 }

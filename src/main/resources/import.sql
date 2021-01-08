@@ -1,0 +1,2 @@
+insert into aspirantes (nombres,apellidos,experiencia,tecnologia,descripcion,estatus) values('Joshua','Carrasco',1,'Java','Me gusta Java',1);
+insert into usuarios (email,password) values ('joshuacarrasco@gmail.com',123456789);
